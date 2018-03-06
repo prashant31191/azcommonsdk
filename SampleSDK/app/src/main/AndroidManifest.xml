@@ -28,7 +28,13 @@
             android:label="@string/title_activity_location_sample"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
-       <!-- <service android:name="com.azsdk.location.utils.MyLocationService"/>-->
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="336684a672860d50a11e523f666fbee2d44cf069"
+            />
+
+
+        <!-- <service android:name="com.azsdk.location.utils.MyLocationService"/>-->
     </application>
 
 </manifest>

@@ -10,11 +10,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.azsdk.R;
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+
+import io.fabric.sdk.android.Fabric;
 
 public class ActAdsInterstitial extends Activity {
 
@@ -29,59 +32,63 @@ public class ActAdsInterstitial extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.act_ads_interstitial);
-        // Create the next level button, which tries to show an interstitial when clicked.
-        mNextLevelButton = ((Button) findViewById(R.id.next_level_button));
-        // Create the text view to show the level number.
-        app_title = (TextView) findViewById(R.id.app_title);
-        mLevelTextView = (TextView) findViewById(R.id.level);
+        try {
+            setContentView(R.layout.act_ads_interstitial);
+            // Create the next level button, which tries to show an interstitial when clicked.
+            mNextLevelButton = ((Button) findViewById(R.id.next_level_button));
+            // Create the text view to show the level number.
+            app_title = (TextView) findViewById(R.id.app_title);
+            mLevelTextView = (TextView) findViewById(R.id.level);
 
 
+            extras = getIntent().getExtras();
+            String interstitial_ad_unit_id = "";
+            String banner_ad_unit_id = "";
 
-        extras = getIntent().getExtras();
-        String interstitial_ad_unit_id = "";
-        String banner_ad_unit_id = "";
+            if (extras != null) {
+                interstitial_ad_unit_id = extras.getString("interstitial_ad_unit_id");
+                banner_ad_unit_id = extras.getString("banner_ad_unit_id");
+                // and get whatever type user account id is
 
-        if (extras != null) {
-            interstitial_ad_unit_id = extras.getString("interstitial_ad_unit_id");
-            banner_ad_unit_id = extras.getString("banner_ad_unit_id");
-            // and get whatever type user account id is
-
-            Log.i("===Ads===","==interstitial_ad_unit_id=="+interstitial_ad_unit_id);
-            Log.i("==Ads====","==banner_ad_unit_id=="+banner_ad_unit_id);
-        }
-
-        if(interstitial_ad_unit_id !=null && interstitial_ad_unit_id.length() > 0){
-            AdsDisplayUtil.setStrAdsIntId(interstitial_ad_unit_id);
-        }
-        else {
-            AdsDisplayUtil.setStrAdsIntId(getString(R.string.interstitial_ad_unit_id));
-        }
-        if(banner_ad_unit_id !=null && banner_ad_unit_id.length() > 0){
-            AdsDisplayUtil.setStrAdsBnrId(banner_ad_unit_id);
-        }
-        else {
-            AdsDisplayUtil.setStrAdsBnrId(getString(R.string.banner_ad_unit_id));
-        }
-
-
-
-        mNextLevelButton.setEnabled(false);
-        app_title.setText("Loading.....");
-        mNextLevelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showInterstitial();
+                Log.i("===Ads===", "==interstitial_ad_unit_id==" + interstitial_ad_unit_id);
+                Log.i("==Ads====", "==banner_ad_unit_id==" + banner_ad_unit_id);
             }
-        });
+
+            if (interstitial_ad_unit_id != null && interstitial_ad_unit_id.length() > 0) {
+                AdsDisplayUtil.setStrAdsIntId(interstitial_ad_unit_id);
+            } else {
+                AdsDisplayUtil.setStrAdsIntId(getString(R.string.interstitial_ad_unit_id));
+            }
+            if (banner_ad_unit_id != null && banner_ad_unit_id.length() > 0) {
+                AdsDisplayUtil.setStrAdsBnrId(banner_ad_unit_id);
+            } else {
+                AdsDisplayUtil.setStrAdsBnrId(getString(R.string.banner_ad_unit_id));
+            }
 
 
-        mLevel = START_LEVEL;
+            mNextLevelButton.setEnabled(false);
+            app_title.setText("Loading.....");
+            mNextLevelButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showInterstitial();
+                }
+            });
 
-        // Create the InterstitialAd and set the adUnitId (defined in values/strings.xml).
-        mInterstitialAd = newInterstitialAd();
-        loadInterstitial();
-        setDisplayBanner();
+
+            mLevel = START_LEVEL;
+
+            // Create the InterstitialAd and set the adUnitId (defined in values/strings.xml).
+            mInterstitialAd = newInterstitialAd();
+            loadInterstitial();
+            setDisplayBanner();
+
+            Fabric.with(this, new Crashlytics());
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
 
     }
 

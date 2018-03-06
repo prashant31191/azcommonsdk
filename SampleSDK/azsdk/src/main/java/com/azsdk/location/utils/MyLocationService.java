@@ -12,6 +12,10 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.crashlytics.android.Crashlytics;
+
+import io.fabric.sdk.android.Fabric;
+
 
 public class MyLocationService extends Service
 {
@@ -106,17 +110,25 @@ public class MyLocationService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-       // Log.e(TAG, "onStartCommand");
-        mContext = getApplicationContext();
-        getAdvertisingId();
+        try {
+            // Log.e(TAG, "onStartCommand");
+            mContext = getApplicationContext();
 
-        macAdressId = MacAdressId.getMacAddr();
-        sha256MacAdressId = MacAdressId.encryptSHA256(macAdressId);
+            getAdvertisingId();
 
-        statusCheck();
+            macAdressId = MacAdressId.getMacAddr();
+            sha256MacAdressId = MacAdressId.encryptSHA256(macAdressId);
 
-        super.onStartCommand(intent, flags, startId);
-        return START_STICKY;
+            statusCheck();
+            Fabric.with(this, new Crashlytics());
+            super.onStartCommand(intent, flags, startId);
+            return START_STICKY;
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            return START_STICKY;
+        }
     }
 
     @Override

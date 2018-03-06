@@ -22,6 +22,13 @@
     <application android:allowBackup="true" android:label="@string/app_name"
         android:supportsRtl="true">
 
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="336684a672860d50a11e523f666fbee2d44cf069"
+            />
+
+
         <service android:name=".location.utils.MyLocationService"/>
 
 

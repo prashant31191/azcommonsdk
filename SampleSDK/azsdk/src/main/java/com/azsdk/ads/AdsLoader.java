@@ -4,11 +4,14 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.RelativeLayout;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Created by prashant.chovatiya on 3/5/2018.
@@ -77,6 +80,7 @@ public class AdsLoader {
                     Log.i("Ads", "onAdClosed");
                 }
             });
+            Fabric.with(context, new Crashlytics());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,6 +146,8 @@ public class AdsLoader {
                     requestLoadInt();
                 }
             }
+
+            Fabric.with(context, new Crashlytics());
         } catch (Exception e) {
             e.printStackTrace();
         }
