@@ -1,6 +1,6 @@
 apply plugin: 'com.github.dcendents.android-maven'
 
-group = 'com.azsdk'                               // Maven Group ID for the artifact
+group = publishedGroupId                             // Maven Group ID for the artifact
 
 install {
     repositories.mavenInstaller {
@@ -8,8 +8,7 @@ install {
         pom {
             project {
                 packaging 'aar'
-                //groupId publishedGroupId
-                groupId 'com.azsdk'
+                groupId publishedGroupId
                 artifactId artifact
 
                 // Add your description here

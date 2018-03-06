@@ -25,18 +25,18 @@ repositories {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.azsdk'
+    bintrayName = 'com.prashant31191.azsdk'
 
-    publishedGroupId = 'com.inthecheesefactory.thecheeselibrary'
-    libraryName = 'AZSDK'
-    artifact = 'com.azsdk'
+    publishedGroupId = 'com.prashant31191.azsdk'
+    libraryName = 'AzSDK'
+    artifact = 'com.prashant31191.azsdk'
 
-    libraryDescription = 'A wrapper for Facebook Native Like Button (LikeView) on Android'
+    libraryDescription = 'A wrapper for Gettling user location/mac address/adv.ID etc.. and display admob ads'
 
-    siteUrl = 'https://github.com/prashant31191/FBLikeAndroid'
-    gitUrl = 'https://github.com/prashant31191/FBLikeAndroid.git'
+    siteUrl = 'https://github.com/prashant31191/azcommonsdk/tree/master/SampleSDK/azsdk'
+    gitUrl = 'https://github.com/prashant31191/azcommonsdk.git'
 
-    libraryVersion = '1.0.1'
+    libraryVersion = '1.0.0'
 
     developerId = 'prashant31191'
     developerName = 'Prashant Patel'
