@@ -37,10 +37,14 @@ import butterknife.OnLongClick;
 import static android.widget.Toast.LENGTH_SHORT;
 
 public class AdsSampleActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.tvData) TextView tvData;
-    @BindView(R.id.rlAds) RelativeLayout rlAds;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.tvData)
+    TextView tvData;
+    @BindView(R.id.rlAds)
+    RelativeLayout rlAds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +63,25 @@ public class AdsSampleActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                //AdsDisplayUtil.openBnrIntAdsScreen(AdsSampleActivity.this,"111","222");
-                AdsDisplayUtil.openBnrIntAdsScreen(AdsSampleActivity.this,"","");
-                tvData.setText("Clear");
+                AdsDisplayUtil.openBnrIntAdsScreen(AdsSampleActivity.this, "", "");
             }
         });
+
+
+        //When click open Full screen ads
+        //For Interstitial Ads
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+
+                //Load Interstitial Ads
+                AdsLoader.loadIntAds(AdsSampleActivity.this, "Add_Here_Interstitial_Ads_Unit_Id");
+            }
+        });
+
+
         // code write in on create
         AdsLoader.setIntAdsNull();
 
@@ -73,14 +91,14 @@ public class AdsSampleActivity extends AppCompatActivity {
     public void clicktvData(TextView view) {
         view.setText("Clear--1");
 
-        AdsLoader.loadBannerAds(AdsSampleActivity.this,rlAds,"");
+        AdsLoader.loadBannerAds(AdsSampleActivity.this, rlAds, "");
     }
 
     @OnLongClick(R.id.tvData)
     public boolean longClicktvData(TextView view) {
         view.setText("-longClicktvData-Clear--1");
         Toast.makeText(this, "-Please wait-", LENGTH_SHORT).show();
-        AdsLoader.loadIntAds(AdsSampleActivity.this,"");
+        AdsLoader.loadIntAds(AdsSampleActivity.this, "");
         return true;
     }
 

@@ -25,11 +25,11 @@ repositories {
 
 ext {
     bintrayRepo = 'maven'
-    bintrayName = 'com.prashant31191.azsdk'
+    bintrayName = 'azsdk'
 
     publishedGroupId = 'com.prashant31191.azsdk'
-    libraryName = 'AzSDK'
-    artifact = 'com.prashant31191.azsdk'
+    libraryName = 'azsdk'
+    artifact = 'azsdk'
 
     libraryDescription = 'A wrapper for Gettling user location/mac address/adv.ID etc.. and display admob ads'
 
