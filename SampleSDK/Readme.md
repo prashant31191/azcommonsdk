@@ -1,9 +1,9 @@
-#azsdk - The Location tracker & Admob Ads Loader
+# azsdk - The Location tracker & Admob Ads Loader
 
 This sdk uses for the Track user location and Admob Ads Loading
 
 
-#How to use AzSDK ?
+# How to use AzSDK ?
 
 *SDK Installation
 
@@ -21,7 +21,7 @@ This sdk uses for the Track user location and Admob Ads Loading
     //or
     implementation 'com.prashant31191.azsdk:azsdk:1.0.0'
 
-#For Location
+# For Location
 
 -Add Event bus for tracking locations
 
@@ -69,7 +69,7 @@ This sdk uses for the Track user location and Admob Ads Loading
         Log.i("==onResponseModel==","=====Call--1--==");
         counter = counter + 1;
         if(responseModel !=null) {
-            tvData.append(counter + " # OK \n"+
+            tvData.append(counter + " #  OK \n"+
                     "Lat : "+responseModel.getLocationLatLong().getLatitude()+
                     "Lng : "+responseModel.getLocationLatLong().getLongitude()+
                     "macAdd : "+responseModel.getMacAdressId()+
@@ -97,7 +97,7 @@ This sdk uses for the Track user location and Admob Ads Loading
         Log.i("==onErrorModel==","=====Call--3--==");
         counter = counter + 1;
         if(errorModel !=null) {
-            tvData.append(counter + " # Error \n"+
+            tvData.append(counter + " #  Error \n"+
                     "Error : "+errorModel.getException().getMessage()+
                     "Code : "+errorModel.getStatusCode()+
                     "\n\n"
@@ -108,7 +108,7 @@ This sdk uses for the Track user location and Admob Ads Loading
 
 
 
-#For Ads SDK
+# For Ads SDK
 
 -When click open Full screen ads
 -For Interstitial Ads
@@ -138,6 +138,6 @@ This sdk uses for the Track user location and Admob Ads Loading
 
 
 
-#Thank you
+# Thank you
 
 -For more detail - https://github.com/prashant31191/azcommonsdk

@@ -1,9 +1,9 @@
-#azsdk - The Location tracker & Admob Ads Loader
+# azsdk - The Location tracker & Admob Ads Loader
 
 This sdk uses for the Track user location and Admob Ads Loading
 
 
-#How to use AzSDK ?
+# How to use AzSDK ?
 
 *SDK Installation
 
@@ -21,7 +21,7 @@ This sdk uses for the Track user location and Admob Ads Loading
     //or
     implementation 'com.prashant31191.azsdk:azsdk:1.0.0'
 
-#For Location
+# For Location
 
 -Add Event bus for tracking locations
 
@@ -108,7 +108,7 @@ This sdk uses for the Track user location and Admob Ads Loading
 
 
 
-#For Ads SDK
+# For Ads SDK
 
 -When click open Full screen ads
 -For Interstitial Ads
@@ -138,6 +138,6 @@ This sdk uses for the Track user location and Admob Ads Loading
 
 
 
-#Thank you
+# Thank you
 
 -For more detail - https://github.com/prashant31191/azcommonsdk
