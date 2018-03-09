@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.azsamplesdk.R;
+import com.azsamplesdk.swipe.SwipeSampleActivity;
 import com.azsdk.location.utils.ErrorModel;
 import com.azsdk.location.utils.MyLocationService;
 import com.azsdk.location.utils.ResponseModel;
@@ -42,6 +43,7 @@ public class LocationSampleActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tvData.setText("Please wait...");
+        startService(new Intent(LocationSampleActivity.this, MyLocationService.class));
 
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

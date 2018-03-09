@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import com.azsamplesdk.R;
 import com.azsamplesdk.ads.AdsSampleActivity;
 import com.azsamplesdk.location.LocationSampleActivity;
+import com.azsamplesdk.swipe.SwipeSampleActivity;
 import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
@@ -106,7 +107,8 @@ public class DashboardActivity extends AppCompatActivity
             Intent intent = new Intent(DashboardActivity.this, AdsSampleActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_slideshow) {
-
+            Intent intent = new Intent(DashboardActivity.this, SwipeSampleActivity.class);
+            startActivity(intent);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

@@ -1,4 +1,4 @@
-package com.azsamplesdk.swipe;
+package com.azsdk.swipe;
 
 /**
  * Created by prashant.chovatiya on 3/9/2018.
@@ -81,8 +81,8 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     public SwipeHelper(Context context, RecyclerView recyclerView, int BUTTON_WIDTH, int BUTTON_TEXT) {
         super(0, ItemTouchHelper.LEFT);
         try {
-            this.BUTTON_WIDTH = BUTTON_WIDTH;
-            this.BUTTON_TEXT = BUTTON_TEXT;
+            this.BUTTON_WIDTH = (int) pxFromDp(context , BUTTON_WIDTH);;
+            this.BUTTON_TEXT = (int) pxFromDp(context , BUTTON_TEXT);
 
             this.recyclerView = recyclerView;
             this.buttons = new ArrayList<>();
@@ -281,4 +281,80 @@ public abstract class SwipeHelper extends ItemTouchHelper.SimpleCallback {
     public interface UnderlayButtonClickListener {
         void onClick(int pos);
     }
+
+
+    public static float dpFromPx(final Context context, final float px) {
+        return px / context.getResources().getDisplayMetrics().density;
+    }
+
+    public static float pxFromDp(final Context context, final float dp) {
+        return dp * context.getResources().getDisplayMetrics().density;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+Direct use
+
+    public void initSwipe() {
+        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            @Override
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                int position = viewHolder.getAdapterPosition();
+
+                if (direction == ItemTouchHelper.LEFT) {
+                    notificationAdapter.removeItem(position);
+                }
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                Bitmap icon;
+                if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+
+                    View itemView = viewHolder.itemView;
+                    float height = (float) itemView.getBottom() - (float) itemView.getTop();
+                    float width = height / 3;
+
+                    if (dX < 0) {
+
+
+                        */
+/*p.setColor(Color.RED);
+                        c.drawRect(background,p);*//*
+
+
+                        RectF background = new RectF((float) itemView.getRight() + dX, (float) itemView.getTop(), (float) itemView.getRight(), (float) itemView.getBottom());
+                        p.setColor(Color.GRAY);
+                        p.setTextSize(35);
+                        c.drawText("will be removed", background.centerX(), background.centerY(), p);
+                        //versionViewHolder.tvName.setTypeface(App.getFont_Regular());
+
+                    }
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+    }
+*/

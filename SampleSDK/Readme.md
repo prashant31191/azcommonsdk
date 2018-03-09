@@ -133,6 +133,86 @@ This sdk uses for the Track user location and Admob Ads Loading
     AdsLoader.loadBannerAds(AdsSampleActivity.this,rlAds,"Add_Here_Banner_Ads_Unit_Id");
 
 
+# Swipe to delete or custom button use for RecyclerView 
+
+-set swipe gesture for the RecyclerView
+
+    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(ActivityList.this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                recyclerView.setHasFixedSize(true);
+    
+                initSwipe();
+                
+                
+- set initialization for swipe RecyclerView
+     
+        private void initSwipe() {
+                try {
+                    int ButtonWidth = 100; // button width
+                    int ButtonText = 18; // text size
+        
+        
+                    SwipeHelper swipeHelper = new SwipeHelper(SwipeSampleActivity.this, recyclerView, ButtonWidth, ButtonText) {
+                        @Override
+                        public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+                            underlayButtons.add(new SwipeHelper.UnderlayButton(
+                                    "Delete",
+                                    0,
+                                    Color.parseColor("#B30000"), // bg color
+                                    Color.parseColor("#FFFFFF"), // text color
+                                    new SwipeHelper.UnderlayButtonClickListener() {
+                                        @Override
+                                        public void onClick(int pos) {
+                                            // TODO: onDelete
+        
+                                            if (dataListAdapter != null) {
+                                                dataListAdapter.removeItem(pos);
+                                            }
+                                        }
+                                    }
+                            ));
+        
+                            underlayButtons.add(new SwipeHelper.UnderlayButton(
+                                    "Share",
+                                  0,
+                                    Color.parseColor("#6E8BAD"), // bg color
+                                    Color.parseColor("#333333"), // text color
+                                    new SwipeHelper.UnderlayButtonClickListener() {
+                                        @Override
+                                        public void onClick(int pos) {
+                                            // TODO: onShare
+                                            String uri = "geo:" + arrayListResponseModel.get(pos).getLocationLatLong() + ","
+                                                    +arrayListResponseModel.get(pos).getLocationLatLong().getLongitude() + "?q=" + arrayListResponseModel.get(pos).getLocationLatLong().getLatitude()
+                                                    + "," + arrayListResponseModel.get(pos).getLocationLatLong().getLongitude();
+                                            startActivity(new Intent(android.content.Intent.ACTION_VIEW,
+                                                    Uri.parse(uri)));
+                                        }
+                                    }
+                            ));
+                        }
+                    };
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+        }
+    
+-set adapter same it is...
+    
+    private void setAdapterData() {
+          try {
+    
+              if (arrayListResponseModel != null) {
+                  dataListAdapter = new DataListAdapter(SwipeSampleActivity.this, arrayListResponseModel);
+                  recyclerView.setAdapter(dataListAdapter);
+                  recyclerView.setItemAnimator(new DefaultItemAnimator());
+              }
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      }
+
+
+
 
 
 

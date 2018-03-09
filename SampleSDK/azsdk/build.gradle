@@ -9,6 +9,7 @@ buildscript {
 
         // We recommend changing it to the latest version from our changelog:
         // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        // upload gradlew build bintrayUpload --info
         classpath 'io.fabric.tools:gradle:1.+'
     }
 }
@@ -31,12 +32,12 @@ ext {
     libraryName = 'azsdk'
     artifact = 'azsdk'
 
-    libraryDescription = 'A wrapper for Gettling user location/mac address/adv.ID etc.. and display admob ads'
+    libraryDescription = 'A wrapper for Gettling user location/mac address/adv.ID etc.. and display admob ads and swipe helper buttons'
 
     siteUrl = 'https://github.com/prashant31191/azcommonsdk/tree/master/SampleSDK/azsdk'
     gitUrl = 'https://github.com/prashant31191/azcommonsdk.git'
 
-    libraryVersion = '1.0.0'
+    libraryVersion = '1.0.1'
 
     developerId = 'prashant31191'
     developerName = 'Prashant Patel'
@@ -75,6 +76,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.android.support:appcompat-v7:27.0.0'
+    implementation 'com.android.support:design:27.0.0'
 
     // play services - location
     implementation 'com.google.android.gms:play-services-maps:11.8.0'
