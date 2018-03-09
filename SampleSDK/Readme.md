@@ -17,9 +17,9 @@ This sdk uses for the Track user location and Admob Ads Loading
 
 -Add below code in app level build.gradle file
 
-    compile 'com.prashant31191.azsdk:azsdk:1.0.0'
+    compile 'com.prashant31191.azsdk:azsdk:1.0.1'
     //or
-    implementation 'com.prashant31191.azsdk:azsdk:1.0.0'
+    implementation 'com.prashant31191.azsdk:azsdk:1.0.1'
 
 # For Location
 
