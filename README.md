@@ -1,5 +1,7 @@
 # azsdk - The Location tracker & Admob Ads Loader
 
+[![Join the chat at https://gitter.im/azcommonsdk-Android-lib/Lobby](https://badges.gitter.im/azcommonsdk-Android-lib/Lobby.svg)](https://gitter.im/azcommonsdk-Android-lib/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 This sdk uses for the Track user location and Admob Ads Loading
 
 
