@@ -2,6 +2,9 @@
 
 This sdk uses for the Track user location and Admob Ads Loading
 
+#Drop message on gitter
+https://gitter.im/azcommonsdk-Android-lib
+
 
 # How to use AzSDK ?
 
