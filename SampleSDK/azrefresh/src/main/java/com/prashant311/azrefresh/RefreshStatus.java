@@ -1,0 +1,20 @@
+package com.prashant311.azrefresh;
+
+enum RefreshStatus {
+
+    DEFAULT,
+    REFRESH_BEFORE,
+    REFRESH_AFTER,
+    REFRESH_READY,
+    REFRESH_DOING,
+    REFRESH_COMPLETE,
+    REFRESH_CANCEL,
+
+    LOAD_BEFORE,
+    LOAD_AFTER,
+    LOAD_READY,
+    LOAD_DOING,
+    LOAD_COMPLETE,
+    LOAD_CANCEL,
+
+}

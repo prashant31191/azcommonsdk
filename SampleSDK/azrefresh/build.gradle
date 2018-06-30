@@ -1,0 +1,93 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        // These docs use an open ended version so that our plugin
+        // can be updated quickly in response to Android tooling updates
+
+        // We recommend changing it to the latest version from our changelog:
+        // https://docs.fabric.io/android/changelog.html#fabric-gradle-plugin
+        // upload gradlew build bintrayUpload --info
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
+
+apply plugin: 'com.android.library'
+
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
+
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'azrefresh'
+
+    publishedGroupId = 'com.prashant31191.azrefresh'
+    libraryName = 'azrefresh'
+    artifact = 'azrefresh'
+
+    libraryDescription = 'A wrapper for display admob ads'
+
+    siteUrl = 'https://github.com/prashant31191/azcommonsdk/tree/master/SampleSDK/azrefresh'
+    gitUrl = 'https://github.com/prashant31191/azcommonsdk.git'
+
+    libraryVersion = '1.0.0'
+
+    developerId = 'prashant31191'
+    developerName = 'Prashant Patel'
+    developerEmail = 'chovatiyap1991@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+
+android {
+    compileSdkVersion 27
+    buildToolsVersion "27.0.0"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.android.support:appcompat-v7:27.0.0'
+
+    // play services - location
+    provided 'com.android.support:recyclerview-v7:27.0.0'
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
+        transitive = true;
+    }
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
+
+apply from: 'install.gradle'
+apply from: 'bintray.gradle'

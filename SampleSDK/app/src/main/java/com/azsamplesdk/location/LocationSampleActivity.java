@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.azsamplesdk.App;
 import com.azsamplesdk.R;
 import com.azsamplesdk.swipe.SwipeSampleActivity;
 import com.azsdk.location.utils.ErrorModel;
@@ -30,9 +31,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LocationSampleActivity extends AppCompatActivity {
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.tvData) TextView tvData;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.tvData)
+    TextView tvData;
+
+    Intent intentService = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,17 @@ public class LocationSampleActivity extends AppCompatActivity {
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         tvData.setText("Please wait...");
-        startService(new Intent(LocationSampleActivity.this, MyLocationService.class));
+
+
+        intentService = new Intent(LocationSampleActivity.this, MyLocationService.class);
+
+        if (App.isMyServiceRunning(this, MyLocationService.class)) {
+            stopService(intentService);
+            startService(intentService);
+        } else {
+            startService(intentService);
+        }
+
 
         //FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -52,8 +68,12 @@ public class LocationSampleActivity extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
 
-                startService(new Intent(LocationSampleActivity.this, MyLocationService.class));
-
+                if (App.isMyServiceRunning(LocationSampleActivity.this, MyLocationService.class)) {
+                    stopService(intentService);
+                    startService(intentService);
+                } else {
+                    startService(intentService);
+                }
                 tvData.setText("Clear");
             }
         });
@@ -62,28 +82,23 @@ public class LocationSampleActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onStart() {
         try {
             super.onStart();
             EventBus.getDefault().unregister(this);
             EventBus.getDefault().register(this);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void onStop() {
+    protected void onDestroy() {
         try {
-            super.onStop();
+            super.onDestroy();
             EventBus.getDefault().unregister(this);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -95,22 +110,23 @@ public class LocationSampleActivity extends AppCompatActivity {
     }
 
     int counter = 0;
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onResponseModel(ResponseModel responseModel) {
 
-        Log.i("==onResponseModel==","=====Call--1--==");
+        Log.i("==onResponseModel==", "=====Call--1--==");
         counter = counter + 1;
-        if(responseModel !=null) {
-            tvData.append(counter + " # OK \n"+
-                    "Lat : "+responseModel.getLocationLatLong().getLatitude()+
-                    "Lng : "+responseModel.getLocationLatLong().getLongitude()+
-                    "macAdd : "+responseModel.getMacAdressId()+
+        if (responseModel != null) {
+            tvData.append(counter + " # OK \n" +
+                    "Lat : " + responseModel.getLocationLatLong().getLatitude() +
+                    "Lng : " + responseModel.getLocationLatLong().getLongitude() +
+                    "macAdd : " + responseModel.getMacAdressId() +
                     "\n\n"
 
             );
 
             if (responseModel.getLocationLatLong().hasSpeed()) {
-            /*progressBarCircularIndeterminate.setVisibility(View.GONE);*/
+                /*progressBarCircularIndeterminate.setVisibility(View.GONE);*/
                 String speed = String.format(Locale.ENGLISH, "%.0f", responseModel.getLocationLatLong().getSpeed() * 3.6) + "km/h";
 
               /*  if (sharedPreferences.getBoolean("miles_per_hour", false)) { // Convert to MPH
@@ -118,67 +134,67 @@ public class LocationSampleActivity extends AppCompatActivity {
                 }
                 */
                 SpannableString s = new SpannableString(speed);
-                s.setSpan(new RelativeSizeSpan(0.25f), s.length()-4, s.length(), 0);
-                tvData.append("===Speed=1=="+s);
-            }
-            else if(responseModel.getLocationLatLong() !=null)
-            {
+                s.setSpan(new RelativeSizeSpan(0.25f), s.length() - 4, s.length(), 0);
+                tvData.append("===Speed=1==" + s);
+            } else if (responseModel.getLocationLatLong() != null) {
                 CLocation cLocation = new CLocation(responseModel.getLocationLatLong());
                 updateSpeed(cLocation);
             }
         }
 
-    };
+    }
+
+    ;
 
 
+    /*  @Subscribe
+      public void onResponseModel2(ResponseModel responseModel) {
+          Log.i("==onResponseModel2==","=====Call--2--==");
+          counter = counter + 1;
+          if(responseModel !=null) {
+              tvData.append(counter + " # OK \n"+
+                      "Lat : "+responseModel.getLocationLatLong().getLatitude()+
+                      "Lng : "+responseModel.getLocationLatLong().getLongitude()+
+                      "macAdd : "+responseModel.getMacAdressId()+
+                      "\n\n"
 
-  /*  @Subscribe
-    public void onResponseModel2(ResponseModel responseModel) {
-        Log.i("==onResponseModel2==","=====Call--2--==");
-        counter = counter + 1;
-        if(responseModel !=null) {
-            tvData.append(counter + " # OK \n"+
-                    "Lat : "+responseModel.getLocationLatLong().getLatitude()+
-                    "Lng : "+responseModel.getLocationLatLong().getLongitude()+
-                    "macAdd : "+responseModel.getMacAdressId()+
-                    "\n\n"
+              );
+          }
 
-            );
-        }
-
-    };*/
+      };*/
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onErrorModel(ErrorModel errorModel) {
-        Log.i("==onErrorModel==","=====Call--3--==");
+        Log.i("==onErrorModel==", "=====Call--3--==");
         counter = counter + 1;
-        if(errorModel !=null) {
-            tvData.append(counter + " # Error \n"+
-                    "Error : "+errorModel.getException().getMessage()+
-                    "Code : "+errorModel.getStatusCode()+
+        if (errorModel != null) {
+            tvData.append(counter + " # Error \n" +
+                    "Error : " + errorModel.getException().getMessage() +
+                    "Code : " + errorModel.getStatusCode() +
                     "\n\n"
 
             );
         }
-    };
+    }
+
+    ;
 
 
+    int i = 0;
+    String strLog = "";
 
-    int i=0;
-    String strLog ="";
     private void updateSpeed(CLocation location) {
         // TODO Auto-generated method stub
-        try{
+        try {
 
-            i = i+1;
-            Log.i("111","====updateSpeed=====i==="+i);
+            i = i + 1;
+            Log.i("111", "====updateSpeed=====i===" + i);
             // Log.i("111","====location=====getLongitude==="+location.getLongitude());
             // Log.i("111","====location=====getLatitude==="+location.getLatitude());
 
 
             float nCurrentSpeed = 0;
 
-            if(location != null)
-            {
+            if (location != null) {
                 location.setUseMetricunits(true);
                 nCurrentSpeed = location.getSpeed();
             }
@@ -192,11 +208,11 @@ public class LocationSampleActivity extends AppCompatActivity {
 
 
             strLog = strLog +
-                    "\n--------------\n "+
-                    strCurrentSpeed + " " + strUnits+
+                    "\n--------------\n " +
+                    strCurrentSpeed + " " + strUnits +
                     "\n--------------\n ";
 
-            tvData.append("\n Speed2 = "+strCurrentSpeed + " " + strUnits);
+            tvData.append("\n Speed2 = " + strCurrentSpeed + " " + strUnits);
 
            /* float speed = Float.parseFloat(strCurrentSpeed);
             if(speed<100)
@@ -206,10 +222,7 @@ public class LocationSampleActivity extends AppCompatActivity {
                 tvLog.setText("out of speed"+strLog);
             }*/
 
-        }
-
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

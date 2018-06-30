@@ -1,1 +1,1 @@
-include ':app',':azsdk'
+include ':app',':azsdk', ':azrefresh', ':azrefresh', ':azlocation'

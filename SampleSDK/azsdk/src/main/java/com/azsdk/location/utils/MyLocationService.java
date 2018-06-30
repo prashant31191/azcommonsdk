@@ -22,7 +22,7 @@ public class MyLocationService extends Service
     private static final String TAG = "==MyLocationService==";
     private Context mContext;
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 1000;
+    private static int LOCATION_INTERVAL = 1000;
     private static final float LOCATION_DISTANCE = 0f;
     private String advertisingId = "";
     private String macAdressId = "";
@@ -114,6 +114,15 @@ public class MyLocationService extends Service
             // Log.e(TAG, "onStartCommand");
             mContext = getApplicationContext();
 
+
+            if (intent.getExtras() != null && intent.getExtras().getInt("interval_time") > 0) {
+                LOCATION_INTERVAL = intent.getExtras().getInt("interval_time");
+            } else
+            {
+                LOCATION_INTERVAL = 1000;
+            }
+
+
             getAdvertisingId();
 
             macAdressId = MacAdressId.getMacAddr();
@@ -142,8 +151,12 @@ public class MyLocationService extends Service
             mLocationManager.requestLocationUpdates(
                     LocationManager.NETWORK_PROVIDER, LOCATION_INTERVAL, LOCATION_DISTANCE,
                     mLocationListeners[1]);
+
+            Log.i(TAG, "===LOCATION_INTERVAL=="+LOCATION_INTERVAL);
+
         } catch (SecurityException ex) {
             Log.i(TAG, "fail to request location update, ignore", ex);
+
         } catch (IllegalArgumentException ex) {
             Log.d(TAG, "network provider does not exist, " + ex.getMessage());
         }

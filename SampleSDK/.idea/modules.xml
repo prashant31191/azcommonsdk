@@ -4,6 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SampleSDK.iml" filepath="$PROJECT_DIR$/SampleSDK.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/azlocation/azlocation.iml" filepath="$PROJECT_DIR$/azlocation/azlocation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/azrefresh/azrefresh.iml" filepath="$PROJECT_DIR$/azrefresh/azrefresh.iml" />
       <module fileurl="file://$PROJECT_DIR$/azsdk/azsdk.iml" filepath="$PROJECT_DIR$/azsdk/azsdk.iml" />
     </modules>
   </component>
