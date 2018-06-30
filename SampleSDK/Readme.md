@@ -215,7 +215,7 @@ This sdk uses for the Track user location and Admob Ads Loading
 
 
 
-
+- Publish lib with your own code - https://medium.com/@sachit.wadhawan/how-to-publish-android-library-on-bintray-jcenter-3636a8bf3979
 
 
 # Thank you
